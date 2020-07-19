@@ -4,6 +4,7 @@
 // Replace with your network credentials
 const char* ssid     = "ARIDO-SC-AP";
 const char* password = "hailhydra";
+// ip: 192.168.4.1
 
 // Set web server port number to 80
 WiFiServer server(80);
@@ -48,21 +49,39 @@ void loop(){
             client.println();
                         
             // Display the HTML web page
-            client.println("<!DOCTYPE html><html>");
-            client.println("<head><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">");
-            client.println("<link rel=\"icon\" href=\"data:,\">");
+            client.println("<!DOCTYPE html><html lang=\"es\">");
+            client.println("<head><meta charset=\"UTF-8\">");
+            client.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            client.println("<title>ARIDO</title></head>");
+    
             // CSS to style the on/off buttons 
             // Feel free to change the background-color and font-size attributes to fit your preferences
             client.println("<style>html { font-family: Helvetica; display: inline-block; margin: 0px auto; text-align: center;}");
             client.println(".button { background-color: #4CAF50; border: none; color: white; padding: 16px 40px;");
-            client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}");
-            client.println(".button2 {background-color: #555555;}</style></head>");
+            client.println("text-decoration: none; font-size: 30px; margin: 2px; cursor: pointer;}</style></head>");
             
             // Web Page Heading
-            client.println("<body><h1>ESP32 Web Server</h1>");
-            client.println("<h3>Hello</h3>");
+            client.println("<body><div style=\"display: flex; flex-direction: column; align-items: center; justify-content: center;\">");
+            client.println("<h3>ARIDO SMART CONFIG</h3>");
+
             client.println("</body></html>");
-            
+            client.println("<form style=\"display: flex; flex-direction: column; align-items: start;\">");
+            // SSID input
+            client.println("<label for=\"lssid\">SSID</label><input type=\"text\" id=\"lssid\" name=\"ssid\" placeholder=\"SSID..\">");
+            // PASS
+            client.println("<label for=\"lpass\">PASS</label><input type=\"text\" id=\"lpass\" name=\"pass\" placeholder=\"Pass..\">");
+            // SUBSCRIBE TOPIC
+            client.println("<label for=\"ltopicsubs\">TOPIC SUBSCRIBE</label><input type=\"text\" id=\"ltopicsubs\" name=\"topicsubs\" placeholder=\"Topic subscribe..\">");
+            // PUBLISH TOPIC
+            client.println("<label for=\"ltopicpub\">TOPIC PUBLISH</label><input type=\"text\" id=\"ltopicpub\" name=\"topicpub\" placeholder=\"Topic publish..\">");
+            // SENSOR SELECT
+            client.println("<label for=\"lsensor\">SENSOR</label>");
+            client.println("<select id=\"lsensor\" name=\"sensor\">");
+            client.println("<option value=\"temp\">Temperatura</option>");
+            client.println("<option value=\"press\">Presion</option>");
+            client.println("<option value=\"other\">Otro</option>");
+            client.println("</select>");
+            client.println("<button>Guardar</button>");
             // The HTTP response ends with another blank line
             client.println();
             // Break out of the while loop
